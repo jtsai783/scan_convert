@@ -17,47 +17,54 @@ void setup(){
   
   int[] fauxrigin = {faux_x, faux_y};
   
-  cartLine(2, 0, 10, 0, fauxrigin);
-  scanConvert(2, 0, 10, 0, fauxrigin);
+  //cartLine(2, 0, 10, 0, fauxrigin);
+  //scanConvert(2, 0, 10, 0, fauxrigin);
   
-  cartLine(2, 2, 10, 3, fauxrigin);
-  scanConvert(2, 2, 10, 3, fauxrigin);
+  //cartLine(2, 2, 10, 3, fauxrigin);
+  //scanConvert(2, 2, 10, 3, fauxrigin);
   
-  cartLine(2, 2, 10, 10, fauxrigin);
-  scanConvert(2, 2, 10, 10, fauxrigin);
+  //cartLine(2, 2, 10, 10, fauxrigin);
+  //scanConvert(2, 2, 10, 10, fauxrigin);
   
-  cartLine(2, 2, 3, 10, fauxrigin);
-  scanConvert(2, 2, 3, 10, fauxrigin);
+  //cartLine(2, 2, 3, 10, fauxrigin);
+  //scanConvert(2, 2, 3, 10, fauxrigin);
   
-  cartLine(0, 2, 0, 10, fauxrigin);
-  scanConvert(0, 2, 0, 10, fauxrigin);
+  //cartLine(0, 2, 0, 10, fauxrigin);
+  //scanConvert(0, 2, 0, 10, fauxrigin);
   
-  cartLine(-2, 2, -3, 10, fauxrigin);
-  scanConvert(-2, 2, -3, 10, fauxrigin);
+  //cartLine(-2, 2, -3, 10, fauxrigin);
+  //scanConvert(-2, 2, -3, 10, fauxrigin);
   
-  cartLine(-2, 2, -10, 10, fauxrigin);
-  scanConvert(-2, 2, -10, 10, fauxrigin);
+  //cartLine(-2, 2, -10, 10, fauxrigin);
+  //scanConvert(-2, 2, -10, 10, fauxrigin);
   
-  cartLine(-2, 2, -10, 3, fauxrigin);
-  scanConvert(-2, 2, -10, 3, fauxrigin);
+  //cartLine(-2, 2, -10, 3, fauxrigin);
+  //scanConvert(-2, 2, -10, 3, fauxrigin);
   
-  cartLine(-2,0 , -10, 0, fauxrigin);
-  scanConvert(-2, 0, -10, 0, fauxrigin);
+  //cartLine(-2,0 , -10, 0, fauxrigin);
+  //scanConvert(-2, 0, -10, 0, fauxrigin);
   
-  cartLine(-2, -2, -10, -3, fauxrigin);
-  scanConvert(-2, -2, -10, -3, fauxrigin);
+  //cartLine(-2, -2, -10, -3, fauxrigin);
+  //scanConvert(-2, -2, -10, -3, fauxrigin);
   
-  cartLine(-2, -2, -10, -10, fauxrigin);
-  scanConvert(-2, -2, -10, -10, fauxrigin);
+  //cartLine(-2, -2, -10, -10, fauxrigin);
+  //scanConvert(-2, -2, -10, -10, fauxrigin);
   
-  cartLine(-2, -2, -3, -10, fauxrigin);
-  scanConvert(-2, -2, -3, -10, fauxrigin);
+  //cartLine(-2, -2, -3, -10, fauxrigin);
+  //scanConvert(-2, -2, -3, -10, fauxrigin);
   
-  cartLine(0, -2, 0, -10, fauxrigin);
-  scanConvert(0, -2, 0, -10, fauxrigin);
+  //cartLine(0, -2, 0, -10, fauxrigin);
+  //scanConvert(0, -2, 0, -10, fauxrigin);
   
-  //cartLine(-1, 1, -2, 4, fauxrigin);
-  //scanConvert(-1, 1, -2, 4, fauxrigin);
+  //cartLine(2, -2, 3, -10, fauxrigin);
+  //scanConvert(2, -2, 3, -10, fauxrigin);
+  
+  //cartLine(2, -2, 10, -10, fauxrigin);
+  //scanConvert(2, -2, 10, -10, fauxrigin);
+  
+  //cartLine(2, -2, 10, -3, fauxrigin);
+  //scanConvert(2, -2, 10, -3, fauxrigin);
+ 
     
   //cartEllipse(0, 0, 40, 40, fauxrigin);
   //scanConvertCirc(0, 0, 40, 40, fauxrigin);
@@ -68,21 +75,21 @@ void setup(){
   //cartRect(2, 2, 7, 7, fauxrigin);
   //rectFill(2, 2, 7, 7, fauxrigin);
   
-  //int poly[] = new int[12];
-  //poly[0] = 2;
-  //poly[1] = 3;
-  //poly[2] = 7;
-  //poly[3] = 1;
-  //poly[4] = 13;
-  //poly[5] = 5;
-  //poly[6] = 13;
-  //poly[7] = 11;
-  //poly[8] = 7;
-  //poly[9] = 7;
-  //poly[10] = 2;
-  //poly[11] = 9;
+  int poly[] = new int[12];
+  poly[0] = 2;
+  poly[1] = 3;
+  poly[2] = 7;
+  poly[3] = 1;
+  poly[4] = 13;
+  poly[5] = 5;
+  poly[6] = 13;
+  poly[7] = 11;
+  poly[8] = 7;
+  poly[9] = 7;
+  poly[10] = 2;
+  poly[11] = 9;
   
   
-  //cartPoly(poly, fauxrigin);
-  //polyFill(poly, fauxrigin);
+  cartPoly(poly, fauxrigin);
+  polyFill(poly, fauxrigin);
 }

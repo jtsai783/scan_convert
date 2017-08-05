@@ -5,16 +5,30 @@ void hiLightPoint(int x, int y, int[] fauxrigin){
   ellipse(x * scale + fauxrigin[0] , -y * scale + fauxrigin[1], 10, 10);
 }
 
-void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
+void hiLightPoint(int x, int y, int[] fauxrigin, color c){
+  noFill();
+  stroke(c);
+  strokeWeight(1);
+  ellipse(x * scale + fauxrigin[0] , -y * scale + fauxrigin[1], 10, 10);
+}
+
+int[] scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
+  int result[];
   //detect octant
   int octant = 0, temp;
+  
+  int pointIndex = 0;
 
   if((x2 - x1) >= 0){
     if((y2 - y1) >= 0){
       if(abs(x2 - x1) >= abs(y2 - y1)){
         octant = 1;
+        
+        result = new int[(abs(x2 - x1) + 1) * 2];
       } else{
         octant = 2;
+        
+        result = new int[(abs(y2 - y1) + 1) * 2];
         
         temp = x1;
         x1 = y1;
@@ -23,15 +37,21 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         temp = x2;
         x2 = y2;
         y2 = temp;
+        
+        
       }
     } else {
       if(abs(x2 - x1) >= abs(y2 - y1)){
         octant = 8;
         
         y1 = -y1;
-        y2 = -y2
+        y2 = -y2;
+        
+        result = new int[(abs(x2 - x1) + 1) * 2];
       } else{
         octant = 7;
+        
+        result = new int[(abs(y2 - y1) + 1) * 2];
         
         temp = x1;
         x1 = y1;
@@ -41,8 +61,10 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         x2 = y2;
         y2 = temp;
         
-        y1 = -y1;
-        y2 = -y2;
+        x1 = -x1;
+        x2 = -x2;
+        
+        
       }
     }
   } else {
@@ -53,10 +75,13 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         x1 = -x1;
         x2 = -x2;
         
+        result = new int[(abs(x2 - x1) + 1) * 2];
       } else{
 
         
         octant = 3;
+    
+        result = new int[(abs(y2 - y1) + 1) * 2];
     
         temp = x1;
         x1 = y1;
@@ -68,6 +93,8 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         
         y1 = -y1;
         y2 = -y2;
+        
+        
       }
     } else {
       if(abs(x2 - x1) >= abs(y2 - y1)){
@@ -77,8 +104,12 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         x2 = -x2;
         y1 = -y1;
         y2 = -y2;
+        
+        result = new int[(abs(x2 - x1) + 1) * 2];
       } else{
         octant = 6;
+        
+        result = new int[(abs(y2 - y1) + 1) * 2];
         
         temp = x1;
         x1 = y1;
@@ -91,14 +122,13 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
         x1 = -x1;
         x2 = -x2;
         y1 = -y1;
-        y2 = -y2;
+        y2 = -y2;  
       }
     }
   }
-
-
   
-  println(octant, x1, y1, x2, y2);
+  //println(octant);
+  //println(result.length);
   
   //set up the bounding rectangle
   int choice = 0;
@@ -109,19 +139,39 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
   
   if (octant == 2){
     hiLightPoint(current_y, current_x, fauxrigin);
+    result[pointIndex] = current_y;
+    result[pointIndex + 1] = current_x;
   } else if (octant == 1){
     hiLightPoint(current_x, current_y, fauxrigin);
+    result[pointIndex] = current_x;
+    result[pointIndex + 1] = current_y;
   } else if (octant == 4) {
     hiLightPoint(-current_x, current_y, fauxrigin);
+    result[pointIndex] = -current_x;
+    result[pointIndex + 1] = current_y;
   } else if (octant == 3) {
     hiLightPoint(-current_y, current_x, fauxrigin);
+    result[pointIndex] = -current_y;
+    result[pointIndex + 1] = current_x;
   } else if (octant == 5) {
     hiLightPoint(-current_x, -current_y, fauxrigin);
+    result[pointIndex] = -current_x;
+    result[pointIndex + 1] = -current_y;
   } else if (octant == 6) {
     hiLightPoint(-current_y, -current_x, fauxrigin);
+    result[pointIndex] = -current_y;
+    result[pointIndex + 1] = -current_x;
   } else if (octant == 7){
     hiLightPoint(current_y, -current_x, fauxrigin);
+    result[pointIndex] = current_y;
+    result[pointIndex + 1] = -current_x;
+  } else if (octant == 8){
+    hiLightPoint(current_x, -current_y, fauxrigin);
+    result[pointIndex] = current_x;
+    result[pointIndex + 1] = -current_y;
   }
+  
+  pointIndex += 2;
   
   int d = 2 * y_delta - x_delta;
   if(d <= 0){
@@ -135,17 +185,39 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
   
   if (octant == 2){
     hiLightPoint(current_y, current_x, fauxrigin);
+    result[pointIndex] = current_y;
+    result[pointIndex + 1] = current_x;
   } else if (octant == 1){
     hiLightPoint(current_x, current_y, fauxrigin);
+    result[pointIndex] = current_x;
+    result[pointIndex + 1] = current_y;
   } else if (octant == 4) {
     hiLightPoint(-current_x, current_y, fauxrigin);
+    result[pointIndex] = -current_x;
+    result[pointIndex + 1] = current_y;
   } else if (octant == 3) {
     hiLightPoint(-current_y, current_x, fauxrigin);
+    result[pointIndex] = -current_y;
+    result[pointIndex + 1] = current_x;
   } else if (octant == 5) {
     hiLightPoint(-current_x, -current_y, fauxrigin);
+    result[pointIndex] = -current_x;
+    result[pointIndex + 1] = -current_y;
   } else if (octant == 6) {
     hiLightPoint(-current_y, -current_x, fauxrigin);
+    result[pointIndex] = -current_y;
+    result[pointIndex + 1] = -current_x;
+  } else if (octant == 7){
+    hiLightPoint(current_y, -current_x, fauxrigin);
+    result[pointIndex] = current_y;
+    result[pointIndex + 1] = -current_x;
+  } else if (octant == 8){
+    hiLightPoint(current_x, -current_y, fauxrigin);
+    result[pointIndex] = current_x;
+    result[pointIndex + 1] = -current_y;
   }
+  
+  pointIndex += 2;
   
   
   for(int i = 1; i < x_delta; i++){
@@ -169,18 +241,42 @@ void scanConvert(int x1, int y1, int x2, int y2, int[] fauxrigin){
     
     if (octant == 2){
       hiLightPoint(current_y, current_x, fauxrigin);
+      result[pointIndex] = current_y;
+      result[pointIndex + 1] = current_x;
     } else if (octant == 1){
       hiLightPoint(current_x, current_y, fauxrigin);
+      result[pointIndex] = current_x;
+      result[pointIndex + 1] = current_y;
     } else if (octant == 4) {
       hiLightPoint(-current_x, current_y, fauxrigin);
+      result[pointIndex] = -current_x;
+      result[pointIndex + 1] = current_y;
     } else if (octant == 3) {
       hiLightPoint(-current_y, current_x, fauxrigin);
+      result[pointIndex] = -current_y;
+      result[pointIndex + 1] = current_x;
     } else if (octant == 5) {
       hiLightPoint(-current_x, -current_y, fauxrigin);
+      result[pointIndex] = -current_x;
+      result[pointIndex + 1] = -current_y;
     } else if (octant == 6) {
       hiLightPoint(-current_y, -current_x, fauxrigin);
+      result[pointIndex] = -current_y;
+      result[pointIndex + 1] = -current_x;
+    } else if (octant == 7){
+      hiLightPoint(current_y, -current_x, fauxrigin);
+      result[pointIndex] = current_y;
+      result[pointIndex + 1] = -current_x;
+    } else if (octant == 8){
+      hiLightPoint(current_x, -current_y, fauxrigin);
+      result[pointIndex] = current_x;
+      result[pointIndex + 1] = -current_y;
     }
+    
+    pointIndex += 2;
   }
+  
+  return result;
 }
 
 void scanConvertCirc(int x, int y, int x_dia, int y_dia, int[] fauxrigin){

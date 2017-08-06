@@ -9,8 +9,8 @@ void setup(){
     line(i * scale, 0, i * scale, height );
   }
   
-  int faux_x = width / 2;
-  int faux_y = width / 2;
+  int faux_x = 80;
+  int faux_y = height - 80;
   
   fill(0);
   ellipse(faux_x, faux_y, 7, 7); //the origin dot
@@ -75,20 +75,29 @@ void setup(){
   //cartRect(2, 2, 7, 7, fauxrigin);
   //rectFill(2, 2, 7, 7, fauxrigin);
   
-  int poly[] = new int[12];
+  int poly[] = new int[22];
   poly[0] = 2;
   poly[1] = 3;
   poly[2] = 7;
   poly[3] = 1;
   poly[4] = 13;
   poly[5] = 5;
-  poly[6] = 13;
-  poly[7] = 11;
-  poly[8] = 7;
-  poly[9] = 7;
-  poly[10] = 2;
-  poly[11] = 9;
-  
+  poly[6] = 23;
+  poly[7] = 3;
+  poly[8] = 28;
+  poly[9] = 17;
+  poly[10] = 21;
+  poly[11] = 28;
+  poly[12] = 12;
+  poly[13] = 21;
+  poly[14] = 16;
+  poly[15] = 16;
+  poly[16] = 13;
+  poly[17] = 11;
+  poly[18] = 7;
+  poly[19] = 7;
+  poly[20] = 2;
+  poly[21] = 9;
   
   cartPoly(poly, fauxrigin);
   polyFill(poly, fauxrigin);

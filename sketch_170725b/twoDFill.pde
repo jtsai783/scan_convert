@@ -19,7 +19,7 @@ class Point{
 
 class Edge implements Comparable<Edge> {
   Point start, end;
-  int x_min, y_min;
+  int x_min, y_min, x_max, y_max;
   int dx, dy, sum, current_x, sign = 1;
   Edge(Point point_1, Point point_2){
     start = point_1;
@@ -56,6 +56,7 @@ void polyFill(int[] poly, int[] fauxrigin){
   int scan_lines;
   int y_max = poly[1];
   int y_min = poly[1];
+  int lowest_scan_line;
   for(int i = 0; i < poly.length; i += 2){
     if(poly[i + 1] > y_max){
       y_max = poly[i + 1];
@@ -66,7 +67,7 @@ void polyFill(int[] poly, int[] fauxrigin){
     }
   }
   scan_lines = y_max - y_min + 1;
-
+  lowest_scan_line = y_min;
 //construct edges
 int num_edges = poly.length / 2;
 Edge[] edges = new Edge[num_edges];
@@ -98,20 +99,28 @@ for(int i = 0; i < edges.length; i++){
   //check for the y_min
   y_min = edge.start.y;
   int x_min = edge.start.x;
+  int x_max = edge.end.x;
+  y_max = edge.end.y;
   if(edge.end.y < y_min){
     y_min = edge.end.y;
     x_min = edge.end.x;
+    
+    y_max = edge.start.y;
+    x_max = edge.start.x;
   }
   
   edge.x_min = x_min;
   edge.y_min = y_min;
+  edge.y_max = y_max;
+  edge.x_max = x_max;
+  
   edge.current_x = x_min;
   edge_table.get(edge.y_min - 1).add(edge);
   Collections.sort(edge_table.get(edge.y_min - 1));
 }
 
 //init AET
-ArrayList<Edge> AET = new ArrayList<Edge>();
+ArrayList<Edge> AET = new ArrayList<Edge>(); //<>//
 
 int edge_processed = 0;
 int edge_processing = 0;
@@ -135,9 +144,10 @@ while(edge_processed < edges.length){
   for(int i = 0; i < AET.size(); i += 2){
     Edge start = AET.get(i);
     Edge end = AET.get(i+1);
-    hiLightPoint(start.current_x, current_scan_line, fauxrigin, color(255,255,0));
+    color c = color(round(random(255)),round(random(255)),round(random(255)));
+    hiLightPoint(start.current_x, current_scan_line + lowest_scan_line, fauxrigin, c);
     for(int j = start.current_x; j < end.current_x; j++){
-      hiLightPoint(j, current_scan_line, fauxrigin, color(255,255,0));
+      hiLightPoint(j, current_scan_line + lowest_scan_line, fauxrigin, c);
     }
   }
   
@@ -154,9 +164,10 @@ while(edge_processed < edges.length){
   
   current_scan_line += 1;
   int i = 0;
-  while(i != AET.size()-1){
-    if(AET.get(i).end.y == current_scan_line){
+  while(i <= AET.size()-1){
+    if(AET.get(i).y_max == current_scan_line + lowest_scan_line){
       AET.remove(i);
+      edge_processed += 1;
     } else {
       i++;
     }
